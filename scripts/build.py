@@ -23,6 +23,28 @@ env = Environment(loader=FileSystemLoader(TPL), autoescape=select_autoescape(["h
 
 TOPIC_LINK_RE = re.compile(r"topic=(\d+)")
 
+# Maps each recovered board to one of the curated .github/ISSUE_TEMPLATE/
+# labels, so a thread continued via the "Continue this conversation on
+# GitHub" button lands in the same label taxonomy as a freshly-opened Issue.
+# Best-effort for boards outside the original hierarchy scrape (guessed from
+# name alone) — a mislabel here is cosmetic, not a data-integrity issue.
+BOARD_LABEL = {
+    "b7": "introductions",
+    "b1": "general-discussion", "b15": "general-discussion", "b23": "general-discussion",
+    "b10": "army-lists", "b11": "army-lists",
+    "b22": "battle-reports", "b26": "general-discussion",
+    "b3": "painting-showcase", "b24": "painting-showcase", "b51": "painting-showcase",
+    "b2": "army-blog",
+    "b4": "fluff-fiction",
+    "b13": "house-rules", "b52": "house-rules",
+    "b6": "general-discussion", "b19": "general-discussion",
+    "b8": "trading-post",
+    "b18": "battle-reports", "b21": "battle-reports", "b16": "battle-reports",
+    "b53": "general-discussion", "b30": "general-discussion", "b35": "general-discussion",
+    "b32": "general-discussion", "b44": "general-discussion", "b48": "general-discussion",
+    "b50": "general-discussion", "b56": "general-discussion", "b55": "general-discussion",
+}
+
 def rewrite_thread_links(body_html: str, known_thread_ids: set, self_id: str) -> str:
     """Cross-thread links inside a post's own body: point them at our copy
     when we have one, otherwise render them struck-through and inert — never
@@ -121,7 +143,7 @@ def main():
             p["body_html"] = rewrite_thread_links(p["body_html"], known_thread_ids, t["id"])
         write(OUT / "thread" / f"{t['id']}.html", env.get_template("thread.html").render(
             forum=forum, board=boards.get(t["board_id"], {"name": "General", "id": "general"}),
-            thread=t,
+            thread=t, board_label=BOARD_LABEL.get(t["board_id"], "general-discussion"),
         ))
 
     # standalone pages: articles + wiki, not part of the forum but part of the site

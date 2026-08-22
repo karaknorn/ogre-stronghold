@@ -54,7 +54,7 @@ Original: {{ thread.source_url }}
 Archived-Thread-Id: {{ thread.id }}
   {%- endset %}
   <div class="continue-thread">
-    <a class="button" href="https://github.com/{{ forum.github_repo }}/issues/new?title={{ ("Re: " ~ thread.title) | urlencode }}&body={{ issue_body | urlencode }}&labels=continued-thread">
+    <a class="button" href="https://github.com/{{ forum.github_repo }}/issues/new?title={{ ("Re: " ~ thread.title) | urlencode }}&body={{ issue_body | urlencode }}&labels={{ ('continued-thread,' ~ board_label) | urlencode }}">
       Continue this conversation on GitHub ↗
     </a>
     <p class="hint">Opens a new GitHub Issue pre-filled with a link back here — sign in with GitHub to post. If someone already restarted this thread, please add to that issue instead of opening a second one.</p>
