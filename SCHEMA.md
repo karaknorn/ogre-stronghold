@@ -114,6 +114,20 @@ site reorganized its categories/boards at least once and no single snapshot
 had both the fullest structure and the final numbers. Same "frozen at
 capture time" honesty as poll results, just applied to two dates instead of one.
 
+## Cross-id duplicates
+Occasionally the same thread showed up twice under two different topic ids
+— traced to one specific cause: SMF's pagination-hover preview endpoint
+(the `;prev_next=` URL variant) returns the *adjacent* topic's content, not
+the one named in its own URL, so an earlier version of the pipeline
+silently attached a random other topic's posts to the wrong id. That
+source is now excluded outright rather than trusted as a lesser-quality
+fallback — an honest gap beats fabricated content under a real thread's
+name. As a second line of defense, threads are also grouped by (title,
+author, first-post date) — specific enough that a coincidental collision
+between genuinely different threads isn't realistic — and only the most
+complete one survives (most posts, latest last-post date on a tie) whenever
+a group still has more than one id.
+
 ## Unrecovered cross-links
 A post that links to another thread (`topic=NNNN`) gets that link rewritten to
 the local copy if it exists in this archive, and replaced with an inert,

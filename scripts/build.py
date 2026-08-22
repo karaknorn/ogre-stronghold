@@ -127,6 +127,9 @@ def main():
         forum=forum, stats=stats, category_groups=category_groups, hierarchy_date=hierarchy_date,
     ))
 
+    if forum.get("staff"):
+        write(OUT / "staff.html", env.get_template("staff.html").render(forum=forum))
+
     # one page per board
     for bid, board in boards_with_counts.items():
         cat = categories.get(board.get("category_id"), {"name": "Other"})

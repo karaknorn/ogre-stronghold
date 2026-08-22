@@ -1,0 +1,13 @@
+[
+  { "name": "introductions",       "color": "c9a24e", "description": "New member saying hello" },
+  { "name": "army-lists",          "color": "9d7a30", "description": "Army lists and tactics" },
+  { "name": "painting-showcase",   "color": "b5432b", "description": "Painting and modeling" },
+  { "name": "army-blog",           "color": "8b5a2b", "description": "Ongoing army project log" },
+  { "name": "battle-reports",      "color": "6b3fa0", "description": "Battle and tournament reports" },
+  { "name": "fluff-fiction",       "color": "2b6cb5", "description": "Background lore and fan fiction" },
+  { "name": "house-rules",         "color": "2f855a", "description": "Homebrew rules and scenarios" },
+  { "name": "trading-post",        "color": "b58900", "description": "Buying, selling, trading" },
+  { "name": "general-discussion",  "color": "6e7781", "description": "Anything else Ogre Kingdoms" },
+  { "name": "continued-thread",    "color": "c9a24e", "description": "Revived from the archived forum" },
+  { "name": "removal-request",     "color": "d1242f", "description": "Request to remove archived content" }
+]

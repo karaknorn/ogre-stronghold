@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% set base = "" %}
+{% block title %}Staff — {{ forum.name }}{% endblock %}
+{% block content %}
+<nav class="crumbs"><a href="index.html">Boards</a> <span>›</span> Staff</nav>
+<h1 class="board-title">The Stronghold Guard</h1>
+<p class="lede">The people who ran the place — credited from the forum's own "Member Ranks"
+post and the rank shown on their archived posts. No separate staff roster survived,
+so this is a citation, not a guess: names here actually carried that rank on at
+least one recovered post.</p>
+
+{% if forum.staff %}
+<section class="category-group">
+  <h2 class="category-title">Administrator</h2>
+  <ul class="threadlist">
+    <li class="thread-row">
+      <span>{{ forum.staff.administrator.name }}</span>
+      <span class="meta">{{ forum.staff.administrator.title }}</span>
+    </li>
+  </ul>
+</section>
+
+<section class="category-group">
+  <h2 class="category-title">Stronghold Guard (Moderators)</h2>
+  <ul class="threadlist">
+    {% for m in forum.staff.moderators %}
+    <li class="thread-row"><span>{{ m }}</span></li>
+    {% endfor %}
+  </ul>
+</section>
+{% endif %}
+{% endblock %}
