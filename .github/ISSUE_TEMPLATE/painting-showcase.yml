@@ -1,0 +1,26 @@
+name: "🎨 Painting & Modeling Showcase"
+description: Photos of your minis, painting/modeling questions. (Mirrors "The Butcher's Cauldron".)
+title: "[WIP] "
+labels: ["painting-showcase"]
+body:
+  - type: textarea
+    id: photos
+    attributes:
+      label: Photos
+      description: Drag and drop or paste images directly into this box — GitHub hosts them automatically.
+    validations:
+      required: true
+  - type: textarea
+    id: details
+    attributes:
+      label: What are we looking at?
+      placeholder: Unit, conversion parts used, paint scheme, what stage this is at...
+    validations:
+      required: false
+  - type: textarea
+    id: feedback
+    attributes:
+      label: Looking for feedback on anything specific?
+      placeholder: Basing, freehand, a technique you're unsure about...
+    validations:
+      required: false

@@ -1,0 +1,30 @@
+name: "🐗 Introduce Yourself"
+description: New to the tribe? Say hello. (Mirrors the original "Gates of the Stronghold" board.)
+title: "[Intro] "
+labels: ["introductions"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        New? Welcome — read the pinned rules/removal-request info in the repo README, then tell us a bit about yourself.
+  - type: input
+    id: handle
+    attributes:
+      label: What should we call you?
+      placeholder: Your name or handle
+    validations:
+      required: true
+  - type: textarea
+    id: about
+    attributes:
+      label: Tell us about yourself
+      placeholder: How'd you find your way here, what armies do you play, how long have you been in the hobby...
+    validations:
+      required: true
+  - type: textarea
+    id: army
+    attributes:
+      label: Show off your army (optional)
+      description: Drag and drop or paste images directly into this box.
+    validations:
+      required: false

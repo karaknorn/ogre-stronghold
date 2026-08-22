@@ -47,7 +47,11 @@ python3 -m http.server -d site 8000   # → http://localhost:8000
 4. Optionally set `forum.github_repo` in `archive.json` to `"owner/repo"` to turn
    on the "Continue this conversation on GitHub" button on every thread — see
    SCHEMA.md for how that layer works (no bulk issue creation, no tokens).
-5. Done — a permanent, forkable, searchable memorial. Because it's a repo, the
+5. `.github/ISSUE_TEMPLATE/` gives Issues real forum-like structure for *new*
+   topics — a curated set of templates (Introductions, Army Lists, Painting
+   Showcase, Battle Reports, etc.) mirroring the original board categories,
+   each auto-labeled so Issues stay filterable/browsable like boards did.
+6. Done — a permanent, forkable, searchable memorial. Because it's a repo, the
    *archive itself* can be forked and mirrored, so it can't die either.
 
 ## The one rule that keeps this clean

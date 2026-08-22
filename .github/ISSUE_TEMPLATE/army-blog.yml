@@ -1,0 +1,32 @@
+name: "📖 Army Blog / Project Log"
+description: Start or continue an ongoing army project log. (Mirrors "Gnoblogs".)
+title: "[Gnoblog] "
+labels: ["army-blog"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        The original Gnoblogs board was for long-running "record the creation of your army" threads —
+        this issue can be that same running log. Add new updates as comments below over time
+        rather than opening a new issue per update.
+  - type: input
+    id: army-name
+    attributes:
+      label: Army / project name
+      placeholder: e.g. "Grubnak's Ironjawz" — whatever you're calling this force
+    validations:
+      required: true
+  - type: textarea
+    id: plan
+    attributes:
+      label: The plan
+      placeholder: Theme, points target, what you're hoping to get out of this project...
+    validations:
+      required: false
+  - type: textarea
+    id: first-update
+    attributes:
+      label: First update
+      description: Drag and drop or paste images directly into this box.
+    validations:
+      required: false

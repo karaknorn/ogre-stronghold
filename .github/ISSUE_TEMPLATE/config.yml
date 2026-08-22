@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Browse the archive first
+    url: https://karaknorn.github.io/ogre-stronghold/
+    about: Looking for an old thread? Search the archived forum before starting a new one.
+  - name: Continue an existing archived thread
+    url: https://karaknorn.github.io/ogre-stronghold/
+    about: Open the thread you want to revive and use its "Continue this conversation on GitHub" button — it pre-fills the link back for you.

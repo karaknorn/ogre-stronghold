@@ -1,0 +1,11 @@
+name: "💬 General Discussion"
+description: Anything Ogre Kingdoms that doesn't fit elsewhere. (Mirrors "The Feeding Grounds".)
+title: ""
+labels: ["general-discussion"]
+body:
+  - type: textarea
+    id: body
+    attributes:
+      label: What's on your mind?
+    validations:
+      required: true

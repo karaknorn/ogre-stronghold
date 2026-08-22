@@ -1,0 +1,30 @@
+name: "💰 Trading Post"
+description: Buy, sell, or trade miniatures — hobby-related only. (Mirrors "The Gnoblar Market".)
+title: "[Trade] "
+labels: ["trading-post"]
+body:
+  - type: dropdown
+    id: type
+    attributes:
+      label: Type
+      options:
+        - Selling
+        - Buying
+        - Trading
+        - Wanted
+    validations:
+      required: true
+  - type: textarea
+    id: items
+    attributes:
+      label: Items
+      placeholder: What you're offering/looking for, condition, quantity...
+    validations:
+      required: true
+  - type: textarea
+    id: photos
+    attributes:
+      label: Photos (optional)
+      description: Drag and drop or paste images directly into this box.
+    validations:
+      required: false

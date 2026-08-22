@@ -1,0 +1,19 @@
+name: "📜 Fluff & Fan Fiction"
+description: Army background, lore, works of fiction. (Mirrors "Maw-pit Sagas".)
+title: "[Saga] "
+labels: ["fluff-fiction"]
+body:
+  - type: input
+    id: title
+    attributes:
+      label: Title
+      placeholder: The name of your tale/tribe/character
+    validations:
+      required: true
+  - type: textarea
+    id: story
+    attributes:
+      label: The story
+      render: text
+    validations:
+      required: true

@@ -1,0 +1,27 @@
+name: "⚔️ Army List / Tactics"
+description: Post an army list or discuss tactics. (Mirrors "Armies of the Kingdoms" and "Know Your Enemy".)
+title: "[List] "
+labels: ["army-lists"]
+body:
+  - type: textarea
+    id: list
+    attributes:
+      label: Army list
+      description: Points total, units, magic items — whatever you've got.
+      render: text
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: Context / what you're after
+      placeholder: Tournament? Casual? Facing a specific army? Looking for feedback on a particular unit choice?
+    validations:
+      required: false
+  - type: input
+    id: opponent
+    attributes:
+      label: Facing army (if relevant)
+      placeholder: e.g. Dwarfs, High Elves...
+    validations:
+      required: false

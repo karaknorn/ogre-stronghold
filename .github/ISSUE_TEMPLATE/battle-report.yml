@@ -1,0 +1,33 @@
+name: "🏆 Battle Report"
+description: Report a battle or tournament result. (Mirrors "Tales of Conquest".)
+title: "[Battle Report] "
+labels: ["battle-reports"]
+body:
+  - type: input
+    id: matchup
+    attributes:
+      label: The matchup
+      placeholder: e.g. Ogre Kingdoms vs. Dwarfs, 2000pts
+    validations:
+      required: true
+  - type: textarea
+    id: report
+    attributes:
+      label: The report
+      placeholder: Deployment, key turns, what won or lost it...
+    validations:
+      required: true
+  - type: textarea
+    id: photos
+    attributes:
+      label: Photos (optional)
+      description: Drag and drop or paste images directly into this box.
+    validations:
+      required: false
+  - type: input
+    id: result
+    attributes:
+      label: Result
+      placeholder: e.g. Win, Loss, Draw — plus VPs if you tracked them
+    validations:
+      required: false
