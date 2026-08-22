@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% set base = "" %}
+{% block content %}
+{% if forum.welcome_html %}
+<section class="welcome-block">
+  <h1 class="welcome-title">Welcome!</h1>
+  {{ forum.welcome_html | safe }}
+</section>
+{% endif %}
+{% if stats %}
+<p class="forum-stats">
+  {% if stats.members %}<strong>{{ "{:,}".format(stats.members) }}</strong> members{% endif %}
+  {% if stats.posts %} · <strong>{{ "{:,}".format(stats.posts) }}</strong> posts{% endif %}
+  {% if stats.topics %} · <strong>{{ "{:,}".format(stats.topics) }}</strong> topics{% endif %}
+  {% if stats.captured_at %}<span class="stats-date">(final tally, {{ stats.captured_at }})</span>{% endif %}
+</p>
+{% endif %}
+{% for g in category_groups %}
+<section class="category-group">
+  <h2 class="category-title">{{ g.category.name }}</h2>
+  <ul class="boardlist">
+    {% for b in g.boards %}
+    <li class="board">
+      <a href="board/{{ b.id }}.html">
+        <span class="board-name">{{ b.name }}</span>
+        <span class="board-count" {% if b.topics %}title="Had {{ '{:,}'.format(b.topics) }} topics as of {{ hierarchy_date | date if hierarchy_date else 'an earlier snapshot' }} — not a completion percentage, threads here span the board's whole lifetime"{% endif %}>
+          {{ b.count }} thread{{ "s" if b.count != 1 }}
+        </span>
+      </a>
+      {% if b.description %}<p class="board-desc">{{ b.description }}</p>{% endif %}
+      {% if b.children %}
+      <p class="subforum-line">Sub-forum:
+        {% for c in b.children %}<a href="board/{{ c.id }}.html">{{ c.name }}</a>{% if not loop.last %}, {% endif %}{% endfor %}
+      </p>
+      {% endif %}
+    </li>
+    {% endfor %}
+  </ul>
+</section>
+{% endfor %}
+{% endblock %}

@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% set base = "../" %}
+{% block title %}{{ thread.title }} — {{ forum.name }}{% endblock %}
+{% block content %}
+<article data-pagefind-body
+  data-pagefind-filter="year:{{ thread.created[:4] if thread.created else 'unknown' }}"
+  {% if thread.created %}data-pagefind-meta="date:{{ thread.created }}"{% endif %}>
+  <nav class="crumbs">
+    <a href="../index.html">Boards</a> <span>›</span>
+    <a href="../board/{{ board.id }}.html">{{ board.name }}</a> <span>›</span>
+    <span data-pagefind-meta="board">{{ board.name }}</span>
+  </nav>
+
+  <h1 class="thread-title" data-pagefind-meta="title">{{ thread.title }}</h1>
+  {% if thread.source_url %}
+  <p class="orig"><a href="{{ thread.source_url }}" rel="nofollow">original thread ↗</a></p>
+  {% endif %}
+
+  {% if thread.poll %}
+  <div class="poll">
+    <h2 class="poll-question">{{ thread.poll.question }}</h2>
+    <dl class="poll-options">
+      {% for o in thread.poll.options %}
+      <div class="poll-option">
+        <dt>{{ o.label }}</dt>
+        <dd>
+          <div class="poll-bar"><div class="poll-bar-fill" style="width: {{ o.percent }}%;"></div></div>
+          <span class="poll-tally">{{ o.votes }} ({{ o.percent }}%)</span>
+        </dd>
+      </div>
+      {% endfor %}
+    </dl>
+    <p class="poll-meta">{{ thread.poll.total_votes }} vote{{ "s" if thread.poll.total_votes != 1 }}{% if thread.poll.voting_closed %} · closed {{ thread.poll.voting_closed | date }}{% endif %}</p>
+  </div>
+  {% endif %}
+
+  {% for p in thread.posts %}
+  <section class="post">
+    <div class="post-head">
+      <span class="post-author" {% if loop.first %}data-pagefind-meta="author"{% endif %}>{{ p.author }}</span>
+      <span class="post-date">{{ p.date | date }}</span>
+    </div>
+    <div class="post-body">{{ p.body_html | safe }}</div>
+    {% if p.signature %}<div class="post-signature">{{ p.signature.body_html | safe }}</div>{% endif %}
+  </section>
+  {% endfor %}
+
+  {% if forum.github_repo %}
+  {% set issue_body -%}
+Continuing an archived Ogre Stronghold thread.
+
+Original: {{ thread.source_url }}
+
+Archived-Thread-Id: {{ thread.id }}
+  {%- endset %}
+  <div class="continue-thread">
+    <a class="button" href="https://github.com/{{ forum.github_repo }}/issues/new?title={{ ("Re: " ~ thread.title) | urlencode }}&body={{ issue_body | urlencode }}&labels=continued-thread">
+      Continue this conversation on GitHub ↗
+    </a>
+    <p class="hint">Opens a new GitHub Issue pre-filled with a link back here — sign in with GitHub to post. If someone already restarted this thread, please add to that issue instead of opening a second one.</p>
+  </div>
+  {% endif %}
+</article>
+{% endblock %}

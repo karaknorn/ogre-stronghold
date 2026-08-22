@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% set base = "" %}
+{% block title %}Articles & Wiki — {{ forum.name }}{% endblock %}
+{% block content %}
+<nav class="crumbs"><a href="index.html">Boards</a> <span>›</span> Articles &amp; Wiki</nav>
+<h1 class="board-title">Articles &amp; Wiki</h1>
+<p class="lede">Tactics and hobby articles, and the OgreWiki — not forum threads, but part of the same site, kept for the same reason.</p>
+
+{% if articles %}
+<h2 class="category-title">Articles</h2>
+<ul class="threadlist">
+  {% for p in articles %}
+  <li class="thread-row">
+    <a href="pages/{{ p.slug }}.html">{{ p.title }}</a>
+    <span class="meta">{% if p.author %}by {{ p.author }}{% endif %}</span>
+  </li>
+  {% endfor %}
+</ul>
+{% endif %}
+
+{% if wiki %}
+<h2 class="category-title">OgreWiki</h2>
+<ul class="threadlist">
+  {% for p in wiki %}
+  <li class="thread-row">
+    <a href="pages/{{ p.slug }}.html">{{ p.title }}</a>
+  </li>
+  {% endfor %}
+</ul>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,5 @@
+# archive.json is ~100MB+ with the full real dataset — over GitHub's 100MB
+# hard per-file limit for a normal git blob. Git LFS keeps it out of the
+# regular object store. Requires `git lfs install` once per machine before
+# the first commit that adds this file.
+archive.json filter=lfs diff=lfs merge=lfs -text

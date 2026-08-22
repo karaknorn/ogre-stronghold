@@ -1,0 +1,57 @@
+name: Build and deploy archive
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "archive.json"
+      - "pages.json"
+      - "templates/**"
+      - "static/**"
+      - "scripts/build.py"
+      - ".github/workflows/deploy.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: true   # archive.json is Git-LFS-tracked (over GitHub's 100MB blob limit)
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install parser/generator deps
+        run: pip install jinja2 beautifulsoup4 lxml
+
+      - name: Build static site from archive.json + pages.json
+        run: python3 scripts/build.py archive.json pages.json
+
+      - name: Index with Pagefind
+        run: npx -y pagefind --site site
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% set base = "../" %}
+{% block title %}{{ board.name }} — {{ forum.name }}{% endblock %}
+{% block content %}
+<nav class="crumbs">
+  <a href="../index.html">Boards</a> <span>›</span> {{ category.name }} <span>›</span>
+  {% if parent %}<a href="../board/{{ parent.id }}.html">{{ parent.name }}</a> <span>›</span> {% endif %}
+  {{ board.name }}
+</nav>
+<h1 class="board-title">{{ board.name }}</h1>
+{% if board.description %}<p class="lede">{{ board.description }}</p>{% endif %}
+<p class="board-tally">
+  {{ threads|length }} thread{{ "s" if threads|length != 1 }} preserved here
+  {%- if board.topics %}
+    <span class="board-tally-then" title="Threads on this page span the board's whole lifetime; this count is just one snapshot, so the two numbers aren't a completion percentage.">
+      · had {{ "{:,}".format(board.topics) }} topics{% if board.posts %}, {{ "{:,}".format(board.posts) }} posts{% endif %}{% if hierarchy_date %} as of {{ hierarchy_date | date }}{% endif %}
+    </span>
+  {%- endif %}
+</p>
+{% if board.children %}
+<p class="subforum-line">Sub-forum:
+  {% for c in board.children %}<a href="../board/{{ c.id }}.html">{{ c.name }}</a>{% if not loop.last %}, {% endif %}{% endfor %}
+</p>
+{% endif %}
+
+<ul class="threadlist">
+  {% for t in threads %}
+  <li class="thread-row">
+    <a href="../thread/{{ t.id }}.html">{{ t.title }}</a>
+    <span class="meta">{{ t.author }} · {{ t.created | date }} · {{ t.posts|length }} post{{ "s" if t.posts|length != 1 }}</span>
+  </li>
+  {% else %}
+  <li class="empty">No threads recovered for this board yet.</li>
+  {% endfor %}
+</ul>
+{% endblock %}

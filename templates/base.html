@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}{{ forum.name }}{% endblock %}</title>
+  <link rel="stylesheet" href="{{ base }}static/style.css">
+  <link rel="stylesheet" href="{{ base }}pagefind/pagefind-ui.css">
+  <script src="{{ base }}pagefind/pagefind-ui.js"></script>
+</head>
+<body>
+  <header class="hold">
+    <a class="brand" href="{{ base }}index.html">
+      <img class="brand-plate" src="{{ base }}static/images/header.jpg" alt="{{ forum.name }}">
+    </a>
+    <p class="tagline">{{ forum.tagline }}</p>
+    <nav class="topnav"><a href="{{ base }}pages.html">Articles &amp; Wiki</a></nav>
+    <div id="search"></div>
+    <script>
+      window.addEventListener('DOMContentLoaded', () => {
+        new PagefindUI({ element: "#search", showSubResults: true,
+                         placeholder: "Search the archive — lists, tactics, painting…" });
+      });
+    </script>
+  </header>
+
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="epitaph">
+    <p>{{ forum.archived_note }}
+      {%- if forum.github_repo %}
+      <a href="https://github.com/{{ forum.github_repo }}/issues/new?title={{ 'Removal request' | urlencode }}&labels=removal-request">Open a removal request ↗</a>
+      {%- endif %}
+    </p>
+    <a class="restorer-credit" href="https://karaknornwargaming.blogspot.com" target="_blank" rel="noopener">
+      <img src="{{ base }}static/images/kn-logo.png" alt="Karak Norn Wargaming">
+      <span>Restored by Karak Norn Wargaming</span>
+    </a>
+  </footer>
+</body>
+</html>

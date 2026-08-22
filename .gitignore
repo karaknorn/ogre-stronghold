@@ -1,0 +1,19 @@
+downloaded_html/
+downloaded_articles/
+downloaded_wiki/
+site_pages/
+*.log
+*fetch*log*.txt
+*parse*log*.txt
+bad_files*.txt
+
+# Regenerated on every push.
+site/
+
+_sample_site_preview/
+
+scripts/*
+!scripts/build.py
+
+__pycache__/
+*.pyc
