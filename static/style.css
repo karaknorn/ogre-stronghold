@@ -67,9 +67,15 @@ body {
   box-shadow: 0 2px 10px rgba(0,0,0,.15);
 }
 .tagline { color: var(--ash); margin: .5rem 0 1.25rem; font-style: italic; }
-.topnav { margin: 0 0 1rem; font-family: ui-sans-serif, system-ui, sans-serif; font-size: .85rem; }
+.topnav { margin: 0 0 1rem; font-family: ui-sans-serif, system-ui, sans-serif; font-size: .85rem;
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: .5rem; }
 .topnav a { color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--accent-d); }
 .topnav a:hover { color: var(--bone); }
+.theme-toggle {
+  font: inherit; color: var(--ash); background: var(--slab); border: 1px solid var(--iron);
+  border-radius: 4px; padding: .3rem .7rem; cursor: pointer;
+}
+.theme-toggle:hover { color: var(--accent); border-color: var(--accent-d); }
 
 /* ── Pagefind search box, retinted to the theme ─────────────────────────── */
 #search { max-width: 640px; }

@@ -4,8 +4,17 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{% block title %}{{ forum.name }}{% endblock %}</title>
-  <link rel="stylesheet" href="{{ base }}static/style.css">
+  <script>
+    (function () {
+      var t = localStorage.getItem("theme");
+      if (t) document.documentElement.setAttribute("data-theme", t);
+    })();
+  </script>
+  <!-- pagefind-ui.css ships its own :root color defaults, so it must load
+       BEFORE style.css — same-specificity :root rules, last one in the
+       cascade wins, and ours needs to win. -->
   <link rel="stylesheet" href="{{ base }}pagefind/pagefind-ui.css">
+  <link rel="stylesheet" href="{{ base }}static/style.css">
   <script src="{{ base }}pagefind/pagefind-ui.js"></script>
 </head>
 <body>
@@ -14,12 +23,32 @@
       <img class="brand-plate" src="{{ base }}static/images/header.jpg" alt="{{ forum.name }}">
     </a>
     <p class="tagline">{{ forum.tagline }}</p>
-    <nav class="topnav"><a href="{{ base }}pages.html">Articles &amp; Wiki</a> · <a href="{{ base }}staff.html">Staff</a></nav>
+    <nav class="topnav">
+      <a href="{{ base }}pages.html">Articles &amp; Wiki</a> · <a href="{{ base }}staff.html">Staff</a>
+      <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle light/dark mode"></button>
+    </nav>
     <div id="search"></div>
     <script>
       window.addEventListener('DOMContentLoaded', () => {
         new PagefindUI({ element: "#search", showSubResults: true,
                          placeholder: "Search the archive — lists, tactics, painting…" });
+
+        var btn = document.getElementById('theme-toggle');
+        function effective() {
+          var t = document.documentElement.getAttribute('data-theme');
+          if (t) return t;
+          return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        }
+        function render() {
+          btn.textContent = effective() === 'dark' ? '☀ Light mode' : '☾ Dark mode';
+        }
+        btn.addEventListener('click', function () {
+          var next = effective() === 'dark' ? 'light' : 'dark';
+          document.documentElement.setAttribute('data-theme', next);
+          localStorage.setItem('theme', next);
+          render();
+        });
+        render();
       });
     </script>
   </header>
