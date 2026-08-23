@@ -3,7 +3,6 @@
 {% block title %}{{ thread.title }} — {{ forum.name }}{% endblock %}
 {% block content %}
 <article data-pagefind-body
-  data-pagefind-filter="year:{{ thread.created[:4] if thread.created else 'unknown' }}"
   {% if thread.created %}data-pagefind-meta="date:{{ thread.created }}"{% endif %}>
   <nav class="crumbs">
     <a href="../index.html">Boards</a> <span>›</span>

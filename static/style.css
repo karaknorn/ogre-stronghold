@@ -77,6 +77,22 @@ body {
 }
 .theme-toggle:hover { color: var(--accent); border-color: var(--accent-d); }
 
+/* ── date-range filter (custom, alongside Pagefind's own search box) ────── */
+.date-filter { max-width: 640px; margin: .75rem 0 0; font-family: ui-sans-serif, system-ui, sans-serif; font-size: .85rem; }
+.date-filter summary { color: var(--ash); cursor: pointer; }
+.date-filter summary:hover { color: var(--accent); }
+.date-filter form { display: flex; flex-wrap: wrap; align-items: flex-end; gap: .75rem; margin: .75rem 0 .5rem; }
+.date-filter label { display: flex; flex-direction: column; gap: .2rem; color: var(--ash); font-size: .78rem; }
+.date-filter input, .date-filter button {
+  font: inherit; padding: .4rem .6rem; border: 1px solid var(--iron); border-radius: 4px;
+  background: var(--stone); color: var(--bone);
+}
+.date-filter input[type="number"] { width: 6rem; }
+.date-filter button { background: var(--accent); color: #fff; border-color: var(--accent-d); cursor: pointer; }
+.date-filter button:hover { background: var(--accent-d); }
+.date-filter .hint { color: var(--ash); font-size: .78rem; margin: 0 0 .75rem; max-width: var(--measure); }
+#date-results .thread-row { border-bottom: 1px solid var(--iron); }
+
 /* ── Pagefind search box, retinted to the theme ─────────────────────────── */
 #search { max-width: 640px; }
 :root {

@@ -28,10 +28,58 @@
       <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle light/dark mode"></button>
     </nav>
     <div id="search"></div>
+    <details class="date-filter">
+      <summary>Filter by date range</summary>
+      <form id="date-filter-form">
+        <input type="text" id="date-query" placeholder="keyword (optional)">
+        <label>From <input type="number" id="date-from" placeholder="2004" min="2000" max="2030"></label>
+        <label>To <input type="number" id="date-to" placeholder="2016" min="2000" max="2030"></label>
+        <button type="submit">Search</button>
+      </form>
+      <p class="hint">Standalone from the search box above — this queries Pagefind
+        directly and checks each result's date itself, since the packaged search
+        widget can only match a single exact date, not a range.</p>
+      <ul id="date-results" class="threadlist"></ul>
+    </details>
     <script>
       window.addEventListener('DOMContentLoaded', () => {
         new PagefindUI({ element: "#search", showSubResults: true,
                          placeholder: "Search the archive — lists, tactics, painting…" });
+
+        var dateForm = document.getElementById('date-filter-form');
+        var dateResults = document.getElementById('date-results');
+        var pf = null;
+        dateForm.addEventListener('submit', async function (e) {
+          e.preventDefault();
+          dateResults.innerHTML = '<li class="empty">Searching…</li>';
+          if (!pf) {
+            pf = await import('{{ base }}pagefind/pagefind.js');
+            await pf.init();
+          }
+          var q = document.getElementById('date-query').value.trim();
+          var from = parseInt(document.getElementById('date-from').value, 10);
+          var to = parseInt(document.getElementById('date-to').value, 10);
+          var res = await pf.search(q || null);
+          var items = await Promise.all(res.results.map(function (r) { return r.data(); }));
+          var filtered = items.filter(function (d) {
+            var raw = d.meta && d.meta.date;
+            if (!raw) return false;
+            var year = parseInt(raw.slice(0, 4), 10);
+            if (!isNaN(from) && year < from) return false;
+            if (!isNaN(to) && year > to) return false;
+            return true;
+          });
+          if (!filtered.length) {
+            dateResults.innerHTML = '<li class="empty">No results in that range.</li>';
+            return;
+          }
+          dateResults.innerHTML = filtered.map(function (d) {
+            var title = (d.meta && d.meta.title) || d.url;
+            var year = d.meta && d.meta.date ? d.meta.date.slice(0, 10) : '';
+            return '<li class="thread-row"><a href="' + d.url + '">' + title + '</a>' +
+                   '<span class="meta">' + year + '</span></li>';
+          }).join('');
+        });
 
         var btn = document.getElementById('theme-toggle');
         function effective() {
